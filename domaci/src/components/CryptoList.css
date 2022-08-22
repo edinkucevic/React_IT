@@ -1,0 +1,19 @@
+.crypto-list {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid red;
+    margin-bottom: 0.1rem;
+  }
+  
+  .btn2 {
+    width: 4rem;
+    height: 2rem;
+    background-color: red;
+    border: 1px dashed red;
+    cursor: pointer;
+    border-radius: 3px;
+  }
