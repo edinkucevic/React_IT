@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import "./Crypto.css";
+import "./CryptoForm.css";
 import CryptoList from "./CryptoList";
 
 const listOfCrypto = [
   { id: 0, name: "Bitcoin", value: 21355 },
   { id: 1, name: "Ethereum", value: 1650 },
   { id: 2, name: "Cardano", value: 0.465 },
-  { id: 3, name: "USDT", value: 1.00 },
-  { id: 4, name: "SOL", value: 34.70 },
+  { id: 3, name: "SOL", value: 35.39 },
+  { id: 4, name: "USDT", value: 1.00 },
   { id: 5, name: "BNB", value: 291.39 },
-  { id: 6, name: "XRP", value: 0.337 },
+  { id: 6, name: "XRP", value: 0.343 },
 ];
 
 const CryptoForm = () => {
   const [cryptoList, setCryptoList] = useState(listOfCrypto);
+  const [showMore, setShowMore] = useState(null);
   const [userData, setUserData] = useState({
     name: "",
     value: "",
@@ -95,6 +96,16 @@ const CryptoForm = () => {
           key={value.id}
           name={value.name}
           value={value.value}
+          showMore={() =>
+            setShowMore((prevValue) => {
+              if (prevValue === value.id) {
+                return null;
+              } else {
+                return value.id;
+              }
+            })
+          }
+          isDescriptionVisible={showMore === value.id}
           deleteCrypto={() => deleteCrypto(value.id)}
         />
       ))}
@@ -102,4 +113,4 @@ const CryptoForm = () => {
   );
 };
 
-export default CryptoForm;
+export default CryptoForm

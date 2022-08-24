@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import CryptoForm from "./components/Crypto";
+import CryptoForm from "./components/Crypto/CryptoForm";
 
 function App() {
   return (
