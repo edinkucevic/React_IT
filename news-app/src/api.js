@@ -15,4 +15,4 @@ export const getBitcoinArticles = async () => {
     );
     const json = await response.json();
     return json;
-  };
+  }
