@@ -58,6 +58,6 @@ class App extends React.Component {
       </Container>
     );
   }
-}
+};
 
 export default App;
