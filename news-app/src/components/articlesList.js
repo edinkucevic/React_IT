@@ -41,6 +41,6 @@ const ArticleList = props => {
       ))}
     </List>
   );
-};
+}
 
 export default ArticleList;

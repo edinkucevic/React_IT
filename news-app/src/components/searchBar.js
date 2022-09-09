@@ -33,7 +33,7 @@ class SearchBar extends React.Component {
           </Form.Group>
         </Form>
       </div>
-    );
+    )
   }
 }
 
