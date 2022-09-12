@@ -1,9 +1,9 @@
-import React from "react"
+import * as React from "react"
 import { getArticles } from "./api";
 import ArticleList from "./components/articlesList";
 import SearchBar from "./components/searchBar";
 import { Container, Header } from "semantic-ui-react";
-
+import axios from "axios";
 class App extends React.Component {
   state = {
     articles: [],
@@ -58,6 +58,6 @@ class App extends React.Component {
       </Container>
     );
   }
-};
+}
 
 export default App;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Header, Image, List } from "semantic-ui-react";
 
+
 const ArticleItem = props => {
   const { article } = props;
   return (
@@ -41,6 +42,6 @@ const ArticleList = props => {
       ))}
     </List>
   );
-}
+};
 
 export default ArticleList;
