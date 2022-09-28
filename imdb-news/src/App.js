@@ -1,95 +1,44 @@
-import React from "react";
-import classes from "./App.module.css";
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Header from './components/header/Header';
+import Home from './pages/homePage/HomePage';
+import MovieList from './components/MovieList/movieList';
+import Movie from './pages/movieDetail/movieDetail';
+import SerieList from './components/SeriesList/seriesList';
+import Serie from "./pages/movieDetail/movieDetail"
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
-import { Routes, Route, Link, NavLink, useNavigate } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
-
-const App = () => {
-  const [value, setValue] = React.useState(0);
-  const navigate = useNavigate();
-  let linkStyle = {
-    backgroundColor: "yellow",
-    fontSize: "1.9rem",
-    color: "rgb(17, 14, 11)",
-    margin: "0 2rem",
-    fontFamily: "Times New Roman", 
+import classes from "./App.css";
 
 
-  };
-  let activeStyle = {
-    backgroundColor: "yellow",
-    fontSize: "1.9rem",
-    color: "rgb(68, 146, 80)",
-    margin: "0 2rem",
-    fontFamily: "Times New Roman", 
-
-  };
+function App() {
   return (
-    <div>
-      <Box className={classes.header}>
+    <div className="App">
+        <Router>
+          <Header />
+            <Routes>
+                <Route index element={<Home />}></Route>
+                <Route path="movie/:id" element={<Movie />}></Route>
+                <Route path="movies/:type" element={<MovieList />}></Route>
+                <Route path="/*" element={<h1>Error Page</h1>}></Route>
+                <Route path="serie/:id" element={<Serie />}></Route>
+                <Route path="serie/:type" element={<SerieList />}></Route>
+            </Routes>
+        </Router>
+
+        <Box className={classes.footer}>
         <BottomNavigation
           style={{
-            backgroundColor: "yellow",
-          }}
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
+            backgroundColor: "black",
           }}
         >
-          <h4
-            style={{
-              fontSize: "2rem",
-              cursor: "pointer",
-              position: "absolute",
-              left: "2rem",
-            }}
-            onClick={() => navigate("/")}
-          >
-            IMDb
-          </h4>
-          <NavLink
-            to="movies"
-            style={({ isActive }) => (isActive ? activeStyle : linkStyle)}
-          >
-            Movies
-          </NavLink>
-          <NavLink
-            to="series"
-            style={({ isActive }) => (isActive ? activeStyle : linkStyle)}
-          >
-            Series
-          </NavLink>
-        </BottomNavigation>
-      </Box>
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="movies" element={<h1>Movies</h1>} />
-        <Route path="series" element={<h1>Series</h1>} />
-      </Routes>
-
-      <Box className={classes.footer}>
-        <BottomNavigation
-          style={{
-            backgroundColor: "rgb(238, 197, 144)",
-          }}
-        >
-          <h4
-            style={{
-              textAlign: "center",
-              fontSize: "1.3rem",
-              cursor: "pointer",
-              wordSpacing: "1rem",
-            }}
-          >
+          <h4 className={classes.footertext}>
             2022 <em>Copyright</em> Edin Kucevic
           </h4>
         </BottomNavigation>
       </Box>
     </div>
   );
-};
+}
 
 export default App;

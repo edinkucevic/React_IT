@@ -1,49 +1,60 @@
-import React, { useEffect, useState } from "react";
-import classes from "./HomePage.css";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import CardWatch from "../../Card/CardWatch";
-import axios from "axios";
+import React, { useEffect, useState } from "react"
+import "./HomePage.css"
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import { Link } from "react-router-dom";
+import MovieList from "../../components/MovieList/movieList";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 
+const Home = () => {
 
-const HomePage = () => {
-  const [showed, setShowed] = useState([]);
-  const getMovies = () => {
-    axios
-      .get(`https://imdb-api.com/en/API/Top250Movies/k_khlg45sc`)
-      .then((res) => {
-        setShowed(res.data.results);
-        console.log(showed);
-      });
-  };
-  useEffect(() => {
-    getMovies();
-  }, []);
-  return (
-    <>
-      <div className={classes.search}>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 1, width: "50ch", textAlign: "center" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            id="outlined-basic"
-            label="Search by Title"
-            variant="outlined"
-          />
-        </Box>
-      </div>
-      <div className={classes.cards}>
-       
-        <CardWatch image="" title="" description="" />
-      </div>
-    </>
-  );
-};
+    const [ popularMovies, setPopularMovies ] = useState([])
 
-export default HomePage;
+
+    useEffect(() => {
+        fetch("https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US")
+        .then(res => res.json())
+        .then(data => setPopularMovies(data.results))
+    }, [])
+
+    return (
+        <>
+            <div className="poster">
+                <Carousel
+                    showThumbs={false}
+                    autoPlay={true}
+                    transitionTime={3}
+                    infiniteLoop={true}
+                    showStatus={false}
+                >
+                    {
+                        popularMovies.map(movie => (
+                            <Link style={{textDecoration:"none",color:"white"}} to={`/movie/${movie.id}`} >
+                                <div className="posterImage">
+                                    <img src={`https://image.tmdb.org/t/p/original${movie && movie.backdrop_path}`} />
+                                </div>
+                                <div className="posterImage__overlay">
+                                    <div className="posterImage__title">{movie ? movie.original_title: ""}</div>
+                                    <div className="posterImage__runtime">
+                                        {movie ? movie.release_date : ""}
+                                        <span className="posterImage__rating">
+                                            {movie ? movie.vote_average :""}
+                                            <i className="fas fa-star" />{" "}
+                                        </span>
+                                    </div>
+                                    <div className="posterImage__description">{movie ? movie.overview : ""}</div>
+                                </div>
+                            </Link>
+                        ))
+                    }
+                </Carousel>
+                <MovieList />
+            </div>
+        </>
+    )
+}
+
+export default Home
+
